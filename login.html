@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>AutoVerse | Admin Login</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="app.js"></script>
+</head>
+<body class="login-page">
+  <div class="login-shell">
+    <div class="login-brand">
+      <div class="brand-mark">🚘</div>
+      <h1>AutoVerse</h1>
+      <p>Admin Panel</p>
+    </div>
+    <div class="login-card">
+      <h2>Welcome Back</h2>
+      <p class="muted">Sign in to manage your vehicle business.</p>
+      <form id="loginForm">
+        <label>Email / Username</label>
+        <input id="loginUser" type="text" placeholder="admin@autoverse.com" required>
+        <label>Password</label>
+        <div class="password-wrap">
+          <input id="loginPass" type="password" placeholder="Admin@123" required>
+          <button type="button" class="eye-btn" id="togglePassword">👁</button>
+        </div>
+        <div class="login-options">
+          <label class="check"><input type="checkbox" id="rememberMe"> Remember me</label>
+        </div>
+        <button class="primary-btn full" type="submit">🔐 Login Securely</button>
+        <p id="loginError" class="error"></p>
+      </form>
+      <!-- <div class="demo-box">
+        <b>Demo Login</b><br>
+        Username: <code>admin</code><br>
+        Password: <code>admin123</code>
+      </div> -->
+    </div>
+  </div>
+
+  
+  <script>
+    if (localStorage.getItem("autoverseLoggedIn") === "true") location.href = "index.html";
+    document.getElementById("togglePassword").onclick = () => {
+      const p = document.getElementById("loginPass");
+      p.type = p.type === "password" ? "text" : "password";
+    };
+    document.getElementById("loginForm").onsubmit = (e) => {
+      e.preventDefault();
+      const u = document.getElementById("loginUser").value.trim();
+      const p = document.getElementById("loginPass").value;
+      if ((u === "admin" || u === "admin@autoverse.com") && p === "admin123") {
+        localStorage.setItem("autoverseLoggedIn", "true");
+        if (document.getElementById("rememberMe").checked) localStorage.setItem("autoverseRemember","true");
+        location.href = "index.html";
+      } else {
+        document.getElementById("loginError").textContent = "Invalid username or password.";
+      }
+    };
+  </script>
+</body>
+</html>

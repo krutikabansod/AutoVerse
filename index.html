@@ -1,0 +1,92 @@
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>AutoVerse | Admin Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+  <div class="app">
+    <aside class="sidebar" id="sidebar">
+      <div class="logo-area"><div class="logo-car">🚘</div><div><b>AutoVerse</b><small>Admin Panel</small></div></div>
+      <nav>
+        <button class="nav-item active" data-section="dashboard">🏠 <span>Dashboard</span></button>
+        <button class="nav-item" data-section="vehicles">🚗 <span>Vehicles</span></button>
+        <button class="nav-item" data-section="addVehicle">➕ <span>Add Vehicle</span></button>
+        <button class="nav-item" data-section="categories">▦ <span>Categories</span></button>
+        <button class="nav-item" data-section="users">👤 <span>Users</span></button>
+        <button class="nav-item" data-section="bookings">▣ <span>Bookings</span></button>
+        <button class="nav-item" data-section="messages">✉ <span>Messages</span><span class="badge">7</span></button>
+        <button class="nav-item" data-section="settings">⚙ <span>Settings</span></button>
+        <button class="nav-item logout" id="logoutBtn">⇥ <span>Logout</span></button>
+      </nav>
+      <div class="sidebar-footer"><div class="mini-car"></div><div><b>AutoVerse</b><small>Drive Your Dreams</small></div></div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <button id="menuBtn" class="icon-btn">☰</button>
+        <div class="search"><span>⌕</span><input id="globalSearch" placeholder="Search vehicles, users, bookings..."></div>
+        <div class="top-actions"><button class="icon-btn">🔔<i>3</i></button><div class="profile">👨🏻‍💼 <div><b>Admin</b><small>Super Admin</small></div>⌄</div></div>
+      </header>
+
+      <div class="content">
+        <section id="dashboard" class="section active">
+          <div class="page-head"><div><h1>Welcome Back, Admin! 👋</h1><p>Here's what's happening with your vehicle management system today.</p></div><div class="date-card">📅 <b id="todayDate"></b><small>Current dashboard</small></div></div>
+          <div class="stats">
+            <div class="stat burgundy"><span>🚗</span><div><small>Total Vehicles</small><strong id="vehicleCount">24</strong><em>↑ 12% vs last month</em></div></div>
+            <div class="stat dark"><span>👥</span><div><small>Total Bookings</small><strong>18</strong><em>↑ 20% vs last month</em></div></div>
+            <div class="stat green"><span>👤</span><div><small>Total Users</small><strong>56</strong><em>↑ 8% vs last month</em></div></div>
+            <div class="stat orange"><span>💬</span><div><small>New Messages</small><strong>7</strong><em>↑ 40% vs last month</em></div></div>
+          </div>
+          <div class="grid-2">
+            <div class="panel"><div class="panel-head"><h3>Vehicle Statistics</h3><span>Vehicles Added</span></div><div class="chart"><div class="bars" id="bars"></div><div class="months">Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec</div></div></div>
+            <div class="panel"><div class="panel-head"><h3>Vehicle Types</h3></div><div class="donut-wrap"><div class="donut">24<small>Total Vehicles</small></div><div class="legend"><span>● Sedan <b>10 (42%)</b></span><span>● SUV <b>7 (29%)</b></span><span>● Sports <b>4 (17%)</b></span><span>● Truck <b>2 (8%)</b></span><span>● Other <b>1 (4%)</b></span></div></div></div>
+          </div>
+          <div class="grid-2 bottom-grid">
+            <div class="panel"><div class="panel-head"><h3>Recent Vehicles</h3><button class="link-btn" data-go="vehicles">View All</button></div><div id="recentVehicles"></div></div>
+            <div><div class="panel quick"><div class="panel-head"><h3>Quick Actions</h3></div><div class="quick-grid"><button data-go="addVehicle">🚗 Add Vehicle</button><button data-go="vehicles">☷ Manage Vehicles</button><button data-go="users">👤 View Users</button><button data-go="bookings">▣ View Bookings</button></div></div>
+            <div class="panel latest"><div class="panel-head"><h3>Latest Bookings</h3><button class="link-btn" data-go="bookings">View All</button></div><div id="latestBookings"></div></div></div>
+          </div>
+        </section>
+
+        <section id="vehicles" class="section">
+          <div class="page-head"><div><h1>Vehicle Management</h1><p>Add, edit, view, price-update and manage vehicle status.</p></div><button class="primary-btn" data-go="addVehicle">＋ Add Vehicle</button></div>
+          <div class="toolbar"><input id="vehicleSearch" placeholder="Search vehicle name, category..."><select id="statusFilter"><option>All Status</option><option>Available</option><option>Sold</option></select></div>
+          <div class="panel table-panel"><table><thead><tr><th>Image</th><th>Vehicle</th><th>Category</th><th>Price</th><th>Info</th><th>Status</th><th>Actions</th></tr></thead><tbody id="vehicleTable"></tbody></table></div>
+        </section>
+
+        <section id="addVehicle" class="section">
+          <div class="page-head"><div><h1>Add Vehicle</h1><p>Enter vehicle price, information, category and image.</p></div></div>
+          <form id="vehicleForm" class="panel form-grid">
+            <div><label>Vehicle Name *</label><input id="vName" required placeholder="e.g. Toyota Fortuner"></div>
+            <div><label>Category *</label><select id="vCategory" required><option>Sedan</option><option>SUV</option><option>Sports</option><option>Truck</option><option>Other</option></select></div>
+            <div><label>Price *</label><input id="vPrice" required type="number" placeholder="25000"></div>
+            <div><label>Status</label><select id="vStatus"><option>Available</option><option>Sold</option></select></div>
+            <div class="full-field"><label>Vehicle Information *</label><textarea id="vInfo" required placeholder="Model year, engine, mileage, features..."></textarea></div>
+            <div class="full-field"><label>Image URL</label><input id="vImage" placeholder="https://images.unsplash.com/..."></div>
+            <div class="full-field"><button class="primary-btn" type="submit">✓ Save Vehicle</button><button class="secondary-btn" type="reset">Clear</button></div>
+          </form>
+        </section>
+
+        <section id="categories" class="section"><div class="page-head"><div><h1>Categories</h1><p>Manage vehicle categories.</p></div></div><div class="category-grid" id="categoryGrid"></div></section>
+
+        <section id="users" class="section"><div class="page-head"><div><h1>Users</h1><p>Manage registered customers and account status.</p></div><button class="primary-btn" id="addUserBtn">＋ Add User</button></div><div class="panel table-panel"><table><thead><tr><th>User</th><th>Email</th><th>Phone</th><th>Bookings</th><th>Status</th><th>Actions</th></tr></thead><tbody id="userTable"></tbody></table></div></section>
+
+        <section id="bookings" class="section"><div class="page-head"><div><h1>Bookings</h1><p>Track customer vehicle reservations.</p></div></div><div class="panel table-panel"><table><thead><tr><th>Customer</th><th>Vehicle</th><th>Date</th><th>Amount</th><th>Status</th><th>Action</th></tr></thead><tbody id="bookingTable"></tbody></table></div></section>
+
+        <section id="messages" class="section"><div class="page-head"><div><h1>Messages</h1><p>Customer enquiries and communication.</p></div></div><div class="message-grid" id="messageGrid"></div></section>
+
+        <section id="settings" class="section"><div class="page-head"><div><h1>Settings</h1><p>Configure admin panel preferences and security.</p></div></div><div class="settings-grid">
+          <div class="panel setting-card"><h3>🔐 Login & Security</h3><label>Admin Email<input value="admin@autoverse.com"></label><label>New Password<input type="password" value="admin123"></label><label class="switch-row">Two-Factor Authentication <input type="checkbox" checked></label><button class="primary-btn save-setting">Save Security Settings</button></div>
+          <div class="panel setting-card"><h3>⚙ General Settings</h3><label>Website Name<input value="AutoVerse"></label><label>Currency<select><option>USD ($)</option><option>INR (₹)</option></select></label><label class="switch-row">Email Notifications <input type="checkbox" checked></label><label class="switch-row">Booking Notifications <input type="checkbox" checked></label><button class="primary-btn save-setting">Save General Settings</button></div>
+          <div class="panel setting-card"><h3>🛡 Access Control</h3><p class="muted">Demo mode: front-end security only. Real password encryption, sessions, database access and server-side protection require a backend.</p><button class="secondary-btn">Manage Permissions</button></div>
+        </div></section>
+      </div>
+    </main>
+  </div>
+  <div id="toast" class="toast"></div>
+  <script src="app.js"></script>
+  </body>
+  </html>
